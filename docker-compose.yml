@@ -10,7 +10,9 @@ services:
       - "5432:5432"
 
   app:
-    build: .
+    build: ./app/.
+    volumes:
+      - ./app:/app
 
   pgadmin:
     container_name: pgadmin4_container

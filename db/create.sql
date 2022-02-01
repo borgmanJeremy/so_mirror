@@ -4,7 +4,7 @@
 BEGIN;
 
 
-CREATE TABLE IF NOT EXISTS public."Question"
+CREATE TABLE IF NOT EXISTS public.question
 (
     id integer NOT NULL,
     post_type integer NOT NULL,
@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS public."Question"
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS public."PostType"
+CREATE TABLE IF NOT EXISTS public.post_type
 (
-    "Id" integer NOT NULL,
-    "Description" text NOT NULL,
-    PRIMARY KEY ("Id")
+    id integer NOT NULL,
+    description text NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS public."Answer"
+CREATE TABLE IF NOT EXISTS public.answer
 (
     id integer NOT NULL,
     question_id integer NOT NULL,
@@ -33,35 +33,19 @@ CREATE TABLE IF NOT EXISTS public."Answer"
     PRIMARY KEY (id)
 );
 
-ALTER TABLE IF EXISTS public."Question"
+ALTER TABLE IF EXISTS public.question
     ADD FOREIGN KEY (post_type)
-    REFERENCES public."PostType" ("Id") MATCH SIMPLE
+    REFERENCES public.post_type (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Quesion"
+ALTER TABLE IF EXISTS public.quesion
     ADD FOREIGN KEY (accepted_answer)
-    REFERENCES public."Answer" (id) MATCH SIMPLE
+    REFERENCES public.answer (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Answer"
-    ADD FOREIGN KEY (question_id)
-    REFERENCES public."Question" (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Answer"
-    ADD FOREIGN KEY (post_type)
-    REFERENCES public."PostType" ("Id") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
 END;
+

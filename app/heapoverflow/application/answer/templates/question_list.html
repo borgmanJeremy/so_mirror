@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Heap Overflow</h1>
+    </div>
+
+
+    <div class="container">
+        {% for dict_item in res %}
+        <div class="row">
+            <div class="col-2 text-center">
+                <p>score:</p>
+                <p>{{ dict_item['score'] }}</p>
+                <br>
+                <p>answers:</p>
+                <p>4</p>
+            </div>
+            <div class="col">
+                <div id="{{ dict_item['id'] }}"><a href="question?id={{ dict_item['id'] }}">{{ dict_item['body'] |
+                        safe}}</a></div>
+                <p> Answer placeholder
+                </p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+
+    </div>
+
+</main>
+{% endblock %}
