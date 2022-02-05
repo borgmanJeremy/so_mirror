@@ -15,7 +15,7 @@ def create_app():
     with app.app_context():
         from .home      import home
         from .question  import question
-        from .answer    import question_list
+        from .question_list    import question_list
 
         app.register_blueprint(home.home_bp)
         app.register_blueprint(question.question_bp)

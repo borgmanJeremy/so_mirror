@@ -4,28 +4,47 @@ from flask import current_app as app
 def get_questions(search_term):
     cursor = app.conn.cursor()
     cursor.execute("""
-    SELECT id, score, body
+    SELECT id, score, accepted_answer, body
     FROM question
     WHERE ts @@ phraseto_tsquery(%s)
     ORDER BY score DESC
     LIMIT 10
-    """,(search_term,))
+    """, (search_term,))
     res = cursor.fetchall()
     res = list(map(lambda x: {
-        "id":    x[0],
-        "score": x[1],
-        "body":  x[2]
+        "id":      x[0],
+        "score":   x[1],
+        "ans_id":  x[2],
+        "body":    x[3]
     }, res))
     return res
 
 
-def get_question_details(id):
+def get_answer_by_id(id):
+    cursor = app.conn.cursor()
+    cursor.execute("""
+    SELECT id, score, body
+    FROM answer
+    WHERE id=%s
+    """, (id,))
+    res = cursor.fetchone()
+    if res == None:
+        return None
+    res = {
+        "id":           res[0],
+        "score":        res[1],
+        "body":         res[2]
+    }
+    return res
+
+
+def get_question_by_id(id):
     cursor = app.conn.cursor()
     cursor.execute("""
     SELECT id, score, accepted_answer, body
     FROM public.question 
     WHERE id=%s;""", (id,))
-    
+
     res = cursor.fetchone()
     res = {
         "id":           res[0],

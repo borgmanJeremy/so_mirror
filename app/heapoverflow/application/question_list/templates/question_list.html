@@ -8,7 +8,7 @@
 
 
     <div class="container">
-        {% for dict_item in res %}
+        {% for dict_item in question_list %}
         <div class="row">
             <div class="col-2 text-center">
                 <p>score:</p>
@@ -20,8 +20,7 @@
             <div class="col">
                 <div id="{{ dict_item['id'] }}"><a href="question?id={{ dict_item['id'] }}">{{ dict_item['body'] |
                         safe}}</a></div>
-                <p> Answer placeholder
-                </p>
+                <p> {{ dict_item['answer'] | safe  }} </p>
             </div>
         </div>
         <hr>
